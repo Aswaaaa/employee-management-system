@@ -21,19 +21,20 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @PostMapping("/employees")
-    public EmployeeResponse addEmployees(@Valid @RequestBody  EmployeeRequest request){
+    public EmployeeResponse addEmployees(@Valid @RequestBody EmployeeRequest request) {
         return employeeService.addEmployees(request);
     }
+
     @GetMapping("/employees/{id}")
-    public EmployeeResponse getEmployeesById(@PathVariable Long id){
+    public EmployeeResponse getEmployeesById(@PathVariable Long id) {
         return employeeService.getEmployeesById(id);
 
     }
-     @GetMapping("/employees")
-    public List<EmployeeResponse> getEmployeesByDepartment(@RequestParam("department") String query){
-        return employeeService.getEmployeesByDepartment(query);
-     }
 
+    @GetMapping("/employees")
+    public List<EmployeeResponse> getEmployeesByDepartment(@RequestParam("department") String query) {
+        return employeeService.getEmployeesByDepartment(query);
+    }
 
 
 }
