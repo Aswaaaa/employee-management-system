@@ -1,0 +1,7 @@
+Review Comments by Devanand!
+
+in employee model id should be autoGenarated(as per the question), generation type is IDENTITY
+
+in service test class, EntityNotFoundException("No employees found") in getEmployeesByDepartment not tested.
+
+not tested main() in EmployeeManagementSystemApplicationTests class
