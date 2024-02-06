@@ -10,7 +10,6 @@ Application for creating and monitoring employee information.
 
 3.Retrieve by Department: Retrieve employee details based on their department.
 
-
 Prerequisites:Before you start, ensure you have met the following requirements:
 
 * JDK 17
@@ -22,7 +21,8 @@ Other dependencies.
 
 ## Testing
 
-You can test the APIs by using testing tools like postman, make sure that your server is running, and then send HTTP requests to the endpoints.
+You can test the APIs by using testing tools like postman, make sure that your server is running, and then send HTTP
+requests to the endpoints.
 
 
 
