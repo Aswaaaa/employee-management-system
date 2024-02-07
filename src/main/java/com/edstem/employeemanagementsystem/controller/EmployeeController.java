@@ -36,5 +36,4 @@ public class EmployeeController {
         return employeeService.getEmployeesByDepartment(query);
     }
 
-
 }
