@@ -1,5 +1,0 @@
-Review Comments by Devanand!
-
-in service test class, EntityNotFoundException("No employees found") in getEmployeesByDepartment not tested.
-
-not tested main() in EmployeeManagementSystemApplicationTests class
