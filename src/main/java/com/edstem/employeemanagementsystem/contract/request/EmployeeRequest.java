@@ -1,4 +1,4 @@
-package com.edstem.employeemanagementsystem.contract;
+package com.edstem.employeemanagementsystem.contract.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -15,7 +14,9 @@ import lombok.NoArgsConstructor;
 public class EmployeeRequest {
     @NotBlank(message = "Name cannot be blank")
     private String name;
+
     @Email(message = "Email cannot be blank")
     private String email;
+
     private String department;
 }

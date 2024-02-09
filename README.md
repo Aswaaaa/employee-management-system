@@ -23,7 +23,3 @@ Other dependencies.
 
 You can test the APIs by using testing tools like postman, make sure that your server is running, and then send HTTP
 requests to the endpoints.
-
-
-
-    
