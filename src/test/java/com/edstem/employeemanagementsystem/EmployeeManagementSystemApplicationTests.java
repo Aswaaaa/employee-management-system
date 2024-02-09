@@ -7,7 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 class EmployeeManagementSystemApplicationTests {
 
     @Test
-    void contextLoads() {
-    }
+    void contextLoads() {}
 
+    @Test
+    public void main() {
+        EmployeeManagementSystemApplication.main(new String[] {});
+    }
 }

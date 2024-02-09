@@ -1,36 +1,35 @@
 package com.edstem.employeemanagementsystem.service;
 
-import com.edstem.employeemanagementsystem.contract.EmployeeRequest;
-import com.edstem.employeemanagementsystem.contract.EmployeeResponse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import com.edstem.employeemanagementsystem.contract.request.EmployeeRequest;
+import com.edstem.employeemanagementsystem.contract.response.EmployeeResponse;
 import com.edstem.employeemanagementsystem.model.Employee;
 import com.edstem.employeemanagementsystem.repository.EmployeeRepository;
+import jakarta.persistence.EntityNotFoundException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
 public class EmployeeServiceTest {
-    @Mock
-    private EmployeeRepository employeeRepository;
-    @Mock
-    private ModelMapper modelMapper;
+    @Mock private EmployeeRepository employeeRepository;
+    @Mock private ModelMapper modelMapper;
     private EmployeeService employeeService;
 
     @BeforeEach
     public void init() {
         MockitoAnnotations.openMocks(this);
         employeeService = new EmployeeService(employeeRepository, modelMapper);
-
     }
 
     @Test
@@ -59,7 +58,6 @@ public class EmployeeServiceTest {
         EmployeeResponse actualResponse = employeeService.getEmployeesById(id);
 
         assertEquals(expectedResponse, actualResponse);
-
     }
 
     @Test
@@ -69,12 +67,32 @@ public class EmployeeServiceTest {
         Employee employee2 = new Employee(2L, "name2", "name2@gmail", query);
         List<Employee> employees = Arrays.asList(employee1, employee2);
 
-        List<EmployeeResponse> expectedResponse = employees.stream()
-                .map(employee -> modelMapper.map(employee, EmployeeResponse.class))
-                .collect(Collectors.toList());
+        List<EmployeeResponse> expectedResponse =
+                employees.stream()
+                        .map(employee -> modelMapper.map(employee, EmployeeResponse.class))
+                        .collect(Collectors.toList());
         when(employeeRepository.searchByDepartment(query)).thenReturn(employees);
 
         List<EmployeeResponse> actualResponse = employeeService.getEmployeesByDepartment(query);
         assertEquals(expectedResponse, actualResponse);
+    }
+
+    @Test
+    void testGetEmployeesByDepartment_NoEmployeesFound() {
+        // Mock the dependencies
+        String query = "NonExistingDepartment";
+        List<Employee> emptyList = Collections.emptyList();
+        when(employeeRepository.searchByDepartment(query)).thenReturn(emptyList);
+
+        // Create an instance of EmployeeService
+        EmployeeService employeeService = new EmployeeService(employeeRepository, modelMapper);
+
+        // Call the method under test and verify that it throws EntityNotFoundException
+        assertThrows(
+                EntityNotFoundException.class,
+                () -> {
+                    employeeService.getEmployeesByDepartment(query);
+                },
+                "Expected EntityNotFoundException when no employees are found");
     }
 }
